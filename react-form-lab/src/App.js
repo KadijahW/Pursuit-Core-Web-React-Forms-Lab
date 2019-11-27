@@ -13,29 +13,38 @@ this.state = {
 
 handleFormSubmit = (event) =>{
   event.preventDefault()
+  console.log('submitted' , event.target.value)
   this.setState({
-    submitted: true
+  submitted: true
   })
 }
 
 handleInput = (event) => {
+  console.log('inputed:' , event.target.value)
   this.setState({
     inputValue: event.target.value
   })
 }
 
 handleSelectChange = (event) => {
+  console.log('selected' , event.target.value)
   this.setState({
     functions: event.target.value
   })
 }
 
 render(){
+  console.log(this.state)
   const {inputValue, functions, submitted} = this.state;
-
+  if(submitted){
+    let empArr = []
+   let str_to_array = inputValue.split(',')
+    empArr.push(str_to_array)
+    console.log(empArr)
+  }
   return (
     <div className="App">
-
+      <h1>Enter each number in the array, separated by a ','</h1>
 <form onSubmit={this.handleFormSubmit}>  
 
       <input type="text" 
@@ -50,7 +59,7 @@ render(){
       <option value='mod'>mode</option>
     </select>
 
-      <button>calculate</button>
+      <button value={submitted}>calculate</button>
 </form>
     </div>
 

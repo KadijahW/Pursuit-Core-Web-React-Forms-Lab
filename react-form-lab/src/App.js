@@ -24,6 +24,12 @@ handleInput = (event) => {
   })
 }
 
+handleSelectChange = (event) => {
+  this.setState({
+    functions: event.target.value
+  })
+}
+
 render(){
   const {inputValue, functions, submitted} = this.state;
 

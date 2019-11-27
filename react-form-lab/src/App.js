@@ -10,6 +10,7 @@ this.state = {
   submitted: false,
 }
 }
+
 handleFormSubmit = (event) =>{
   event.preventDefault()
   this.setState({
@@ -17,6 +18,11 @@ handleFormSubmit = (event) =>{
   })
 }
 
+handleInput = (event) => {
+  this.setState({
+    inputValue: event.target.value
+  })
+}
 
 render(){
   const {inputValue, functions, submitted} = this.state;
@@ -25,6 +31,7 @@ render(){
     <div className="App">
 
 <form onSubmit={this.handleFormSubmit}>  
+
       <input type="text" 
        placeholder="enter numbers" 
        value={inputValue}

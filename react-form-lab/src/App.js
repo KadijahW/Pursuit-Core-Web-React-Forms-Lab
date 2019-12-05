@@ -52,22 +52,24 @@ avgFunction = (inputValue) => {
 }
 
 modeFunction = (inputValue) => {
-let obj = {}
-for(let i = 0; i < inputValue.length; i++){
-  if(obj[inputValue[i]]){
-    obj[inputValue[i]] += 1
-  }else{
-    obj[inputValue[i]] = 1
+  let obj = {}
+  let largest = 0;
+  for(let i = 0; i < inputValue.length; i++){
+    if(obj[inputValue[i]]){
+      obj[inputValue[i]] += 1
+    }else{
+      obj[inputValue[i]] = 1
+    }
   }
-}
-let largest;
-for(let value in obj){
-  if(!largest){
-    largest = obj[value]
+  for(let value in obj){
+    if(obj[value] > largest){
+      largest = obj[value]
+    }
   }
-}
-// console.log(obj)
-}
+  console.log(obj)
+  return largest;
+
+  }
 
 render(){
   console.log(this.state)
@@ -78,13 +80,14 @@ render(){
   if(submitted){
    let str_to_array = inputValue.split(',')
     console.log(str_to_array)
+
   if(functions === "sum"){
    count = this.sumFunction(str_to_array)
   }
   if(functions === "avg"){
  count = this.avgFunction(str_to_array)
 }
-if(functions === "mod"){
+if(functions === "mode"){
   count = this.modeFunction(str_to_array)
 }
   }
@@ -104,7 +107,7 @@ if(functions === "mod"){
       <option value=""></option>
      <option value='sum'>sum</option>
       <option value='avg'>average</option>
-      <option value='mod'>mode</option>
+      <option value='mode'>mode</option>
     </select>
 
     <button value={submitted}>calculate</button>

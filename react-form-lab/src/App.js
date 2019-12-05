@@ -27,7 +27,7 @@ handleInput = (event) => {
 }
 
 handleSelectChange = (event) => {
-  console.log('selected' , event.target.value)
+  // console.log('selected' , event.target.value)
   this.setState({
     functions: event.target.value,
   })
@@ -63,23 +63,24 @@ modeFunction = (inputValue) => {
   }
   for(let value in obj){
     if(obj[value] > largest){
-      largest = obj[value]
+      largest = value
     }
-  }
   console.log(obj)
+    return largest
+  }
   return largest;
 
   }
 
 render(){
-  console.log(this.state)
+  // console.log(this.state)
   const {inputValue, functions, submitted} = this.state;
 
  let count = 0;
 
   if(submitted){
    let str_to_array = inputValue.split(',')
-    console.log(str_to_array)
+    // console.log(str_to_array)
 
   if(functions === "sum"){
    count = this.sumFunction(str_to_array)

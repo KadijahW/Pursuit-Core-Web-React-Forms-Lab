@@ -13,14 +13,14 @@ this.state = {
 
 handleFormSubmit = (event) =>{
   event.preventDefault()
-  console.log('submitted' , event.target.value)
+  // console.log('submitted' , event.target.value)
   this.setState({
   submitted: true
   })
 }
 
 handleInput = (event) => {
-  console.log('inputed:' , event.target.value)
+  // console.log('inputed:' , event.target.value)
   this.setState({
     inputValue: event.target.value
   })
@@ -29,28 +29,76 @@ handleInput = (event) => {
 handleSelectChange = (event) => {
   console.log('selected' , event.target.value)
   this.setState({
-    functions: event.target.value
+    functions: event.target.value,
   })
+}
+
+sumFunction = (inputValue) => {
+  let count = 0;
+  for (let i = 0; i < inputValue.length; i++){
+    // console.log(str_to_array[i])
+    count += parseInt(inputValue[i]) 
+}
+return count;
+}
+
+avgFunction = (inputValue) => {
+  let count = 0;
+  for(let i = 0; i < inputValue.length; i++){
+    count += parseInt(inputValue[i])
+  }
+   count /= inputValue.length
+    return count;
+}
+
+modeFunction = (inputValue) => {
+let obj = {}
+for(let i = 0; i < inputValue.length; i++){
+  if(obj[inputValue[i]]){
+    obj[inputValue[i]] += 1
+  }else{
+    obj[inputValue[i]] = 1
+  }
+}
+let largest;
+for(let value in obj){
+  if(!largest){
+    largest = obj[value]
+  }
+}
+// console.log(obj)
 }
 
 render(){
   console.log(this.state)
   const {inputValue, functions, submitted} = this.state;
+
+ let count = 0;
+
   if(submitted){
-    let empArr = []
    let str_to_array = inputValue.split(',')
-    empArr.push(str_to_array)
-    console.log(empArr)
+    console.log(str_to_array)
+  if(functions === "sum"){
+   count = this.sumFunction(str_to_array)
   }
+  if(functions === "avg"){
+ count = this.avgFunction(str_to_array)
+}
+if(functions === "mod"){
+  count = this.modeFunction(str_to_array)
+}
+  }
+
   return (
     <div className="App">
-      <h1>Enter each number in the array, separated by a ','</h1>
-<form onSubmit={this.handleFormSubmit}>  
+      <h1>Enter each number in the array, separated by a ','  </h1>
+ <form onSubmit={this.handleFormSubmit}>  
 
-      <input type="text" 
+    <input type="text" 
        placeholder="enter numbers" 
        value={inputValue}
-       onChange={this.handleInput}/>
+       onChange={this.handleInput}
+    />
 
     <select id="functions" value={functions} onChange={this.handleSelectChange}>
       <option value=""></option>
@@ -59,13 +107,12 @@ render(){
       <option value='mod'>mode</option>
     </select>
 
-      <button value={submitted}>calculate</button>
+    <button value={submitted}>calculate</button>
 </form>
+<p>{submitted ? count : " " }</p>
     </div>
-
   );
 }
 }
-
 
 export default App;
